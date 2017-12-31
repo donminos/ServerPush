@@ -75,7 +75,7 @@ public class EchoClient
             }
 
             // Send the text to the server.
-            ws.sendText("{\"opcion\": 1,\"token\": \"PruebaTelefono\", \"msn\": \""+text+"\"}");
+            ws.sendText("{\"reenvio\": false,\"token\": \"PruebaTelefono\", \"msn\": \""+text+"\"}");
         }
 
         // Close the web socket.

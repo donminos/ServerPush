@@ -10,7 +10,7 @@ function onMessage(evt) {
 }
 
 function mandar(tokenSend,info) {
-    param = {opcion: 1, token: tokenSend, msn: info};
+    param = {reenvio: false, token: tokenSend, msn: info};
     wsocket.send(JSON.stringify(param));
 }
 /*hilo*/

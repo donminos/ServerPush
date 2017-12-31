@@ -22,7 +22,7 @@ public class TestAPP {
                 })
                 .connect();
         
-        websocket.sendText("{'opcion': 1,'token': 'PruebaTelefono', 'msn': 'info'}");
+        websocket.sendText("{'reenvio': false,'token': 'PruebaTelefono', 'msn': 'info'}");
         
         websocket.disconnect();
         // Don't forget to call disconnect() after use.

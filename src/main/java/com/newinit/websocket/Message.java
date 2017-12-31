@@ -6,17 +6,17 @@ package com.newinit.websocket;
  */
 public class Message {
 
-    private int opcion;
+    private boolean reenvio;
     private String token;
     private String msn;
     private boolean todos;
 
-    public int getOpcion() {
-        return opcion;
+    public boolean isReenvio() {
+        return reenvio;
     }
 
-    public void setOpcion(int opcion) {
-        this.opcion = opcion;
+    public void setReenvio(boolean reenvio) {
+        this.reenvio = reenvio;
     }
 
     public String getToken() {

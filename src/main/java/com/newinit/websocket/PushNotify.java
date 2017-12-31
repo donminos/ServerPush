@@ -15,8 +15,9 @@ public class PushNotify {
 
     @OnMessage
     public void onMessage(Session session, String msg) {
-//provided for completeness, in out scenario clients don't send any msg.
+        //provided for completeness, in out scenario clients don't send any msg.
         try {
+            boolean sendMessage = false;
             ObjectMapper mapper = new ObjectMapper();
             ArrayList<Session> closedSessions = new ArrayList<>();
             Message mensaje = mapper.readValue(msg, Message.class);
@@ -28,7 +29,8 @@ public class PushNotify {
                             closedSessions.add(sesion);
                         } else if (sesion.getId().equals(ActionDB.findSessionForToken(mensaje.getToken()))) {
                             sesion.getBasicRemote().sendText(mensaje.getMsn());
-                            ActionDB.insertMensaje(session.getId(),sesion.getId(), mensaje.getMsn());
+                            ActionDB.insertMensaje(session.getId(), sesion.getId(), mensaje.getMsn());
+                            sendMessage = true;
                         }
                     }
 
@@ -39,10 +41,19 @@ public class PushNotify {
                             closedSessions.add(sesion);
                         } else {
                             sesion.getBasicRemote().sendText(mensaje.getMsn());
-                            ActionDB.insertMensaje(session.getId(),sesion.getId(), mensaje.getMsn());
+                            ActionDB.insertMensaje(session.getId(), sesion.getId(), mensaje.getMsn());
+                            sendMessage = true;
                         }
                     }
                 }
+                if (!sendMessage) {
+                    if (!mensaje.isReenvio()) {
+                        ActionDB.insertMensajeNotSend(session.getId(), ActionDB.findSessionForToken(mensaje.getToken()), mensaje.getMsn());
+                    }
+                } else if (sendMessage) {
+                    ActionDB.deleteMensajeNotSend(session.getId(), ActionDB.findSessionForToken(mensaje.getToken()), mensaje.getMsn());
+                }
+
                 queue.removeAll(closedSessions);
             }
             System.out.println("received msg " + msg + " from " + session.getId());
@@ -55,8 +66,8 @@ public class PushNotify {
     public void open(Session session) {
         queue.add(session);
         System.out.println("New session opened: " + session.getId());
-        String [] param=session.getRequestURI().getQuery().split("=");
-        ActionDB.updateSession(param[1],param[2], session.getId());
+        String[] param = session.getRequestURI().getQuery().split("=");
+        ActionDB.updateSession(param[1], param[2], session.getId());
         ActionDB.updateSession(session.getId(), true);
     }
 

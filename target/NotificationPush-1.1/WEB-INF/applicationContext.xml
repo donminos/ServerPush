@@ -6,6 +6,7 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
     http://www.springframework.org/schema/context
@@ -13,13 +14,16 @@
     http://www.springframework.org/schema/mvc 
     http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
     http://www.springframework.org/schema/util 
-    http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+    http://www.springframework.org/schema/util/spring-util-4.0.xsd
+    http://www.springframework.org/schema/task 
+    http://www.springframework.org/schema/task/spring-task.xsd">
 <!-- Activates various annotations to be detected in bean classes -->
 <context:annotation-config/>
 <!-- Scans the classpath for annotated components that will be auto-registered as Spring beans. For example @Controller and @Service. Make sure to set the correct base-package-->
-<context:component-scan base-package="com.newinit.controller"/>
+<context:component-scan base-package="com.newinit.task"/>
 <!-- Configures the annotation-driven Spring MVC Controller programming model. Note that, with Spring 3.0, this tag works in Servlet MVC only! -->
 <mvc:annotation-driven/>
+<task:annotation-driven/>
 
 <mvc:resources mapping="/**" location="/" />
 

@@ -39,6 +39,7 @@ public class PushNotify {
                         if (!sesion.isOpen()) {
                             System.err.println("Closed session: " + sesion.getId());
                             closedSessions.add(sesion);
+                            ActionDB.updateSession(sesion.getId(), false);
                         } else {
                             sesion.getBasicRemote().sendText(mensaje.getMsn());
                             ActionDB.insertMensaje(session.getId(), sesion.getId(), mensaje.getMsn());

@@ -21,14 +21,14 @@ import org.springframework.stereotype.Component;
 public class TaskReSendMessage {
 
     //@Scheduled(fixedDelay = 3600000, )
-    @Scheduled(fixedDelay = 60000)
+    @Scheduled(fixedDelay = 10000)
     public void run() {
         try {
             List<BasicDBObject> dbObjects = ActionDB.findMessageNotSend();
             for (BasicDBObject obj : dbObjects) {
                 if (ActionDB.validateForToken(obj.getString("token"))) {
                     WebSocket websocket = new WebSocketFactory()
-                            .createSocket("ws://localhost:8084/NotificationPush/pushNotification?info=Server=ABC")
+                            .createSocket("wss://www.tdmobile.com.mx/NotificationPush-1.2/pushNotification?info=Server=ABC")
                             .addListener(new WebSocketAdapter() {
                                 @Override
                                 public void onTextMessage(WebSocket ws, String message) {

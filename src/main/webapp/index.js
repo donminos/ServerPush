@@ -1,5 +1,5 @@
-var wsocket, url = "ws://localhost:8084/NotificationPush/pushNotification?info=", id;
-//var wsocket, url = "wss://www.tdmobile.com.mx/NotificationPush-1.0//pushNotification?info=", id;
+//var wsocket, url = "ws://localhost:8084/NotificationPush/pushNotification?info=", id;
+var wsocket, url = "wss://www.tdmobile.com.mx/NotificationPush-1.2/pushNotification?info=", id;
 function connect(url, token, id) {
     this.id = id;
     wsocket = new WebSocket(this.url + token+"=ABC");
